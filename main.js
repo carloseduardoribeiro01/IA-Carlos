@@ -7,87 +7,71 @@ const textoResultado = document.querySelector(".texto-resultado");
 
 const perguntas = [
     {
-        enunciado: "Pergunta 1",
+        enunciado: "Palmeiras tem mundial?",
         alternativas: [
-            { 
-                texto: "Alternativa A",
-                afirmação: "afirmação da alternativa A"
+            {
+                texto: "Não",
+                afirmacao: "afirmacao da alternativa A."
             },
-            {   
-                texto: "Alternativa B",
-                afirmação: "afirmação da alternativa B"
+            {
+                texto: "Não",
+                afirmacao: "afirmacao da alternativa B."
             }
         ]
     },
-
     {
-        enunciado: "Pergunta 2",
+        enunciado: "Tem ceteza?",
         alternativas: [
-            { 
-                texto: "Alternativa A",
-                afirmação: "afirmação da alternativa A"
+            {
+                texto: "Sim",
+                afirmacao: "afirmacao da alternativa A."
             },
-            {   
-                texto: "Alternativa B",
-                afirmação: "afirmação da alternativa B"
-            }
-        ]
-    },
-
-    {
-        enunciado: "Pergunta 3",
-        alternativas: [
-            { 
-                texto: "Alternativa A",
-                afirmação: "afirmação da alternativa A"
-            },
-            {   
-                texto: "Alternativa B",
-                afirmação: "afirmação da alternativa B"
-            }
-        ]
-    },
-
-    {
-        enunciado: "Pergunta 4",
-        alternativas: [
-            { 
-                texto: "Alternativa A",
-                afirmação: "afirmação da alternativa A"
-            },
-            {   
-                texto: "Alternativa B",
-                afirmação: "afirmação da alternativa B"
-            }
-        ]
-    },
-
-    {
-        enunciado: "Pergunta 5",
-        alternativas: [
-            { 
-                texto: "Alternativa A",
-                afirmação: "afirmação da alternativa A"
-            },
-            {   
-                texto: "Alternativa B",
-                afirmação: "afirmação da alternativa B"
+            {
+                texto: "Sim",
+                afirmacao: "afirmacao da alternativa B."
             }
         ]
     }
 ];
 
-let atual= 0;
+let atual = 0;
 let perguntaAtual;
 let historiaFinal = "";
 
-function mostrarPergunta(){
+function mostraPergunta(){
     if (atual >= perguntas.length){
-        mostrarResultado();
+        mostraResultado();t
         return;
     }
     perguntaAtual = perguntas[atual];
     caixaPerguntas.textContent = perguntaAtual.enunciado;
     caixaAlternativas.textContent = "";
-    mostrarAlternativas();
+    mostraAlternativas();
 }
+
+function mostraAlternativas(){
+    for(const alternativa of perguntaAtual.alternativas){
+        const botaoAlternativas = document.createElement("button");
+        botaoAlternativas.textContent = alternativa.texto;
+        botaoAlternativas.addEventListener("click",
+            ()=>respostaSelecionada(alternativa));
+        caixaAlternativas.appendChild(botaoAlternativas);
+    }
+}
+function respostaSelecionada(opcaoSelecionada){
+    const afirmacoes = opcaoSelecionada.afirmacao;
+    historiaFinal += afirmacoes + " ";
+    atual ++;
+    mostraPergunta();
+}
+
+
+
+
+function mostraResultado(){
+    caixaPerguntas.textContent = "De acordo com suas respostas...";
+    textoResultado.textContent = historiaFinal;
+    caixaAlternativas.textContent = "";
+}
+
+mostraPergunta();
